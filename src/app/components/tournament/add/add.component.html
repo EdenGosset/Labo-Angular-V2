@@ -1,0 +1,72 @@
+<div class="justify-center items-center mx-auto">
+  <p-card styleClass="max-w-2xl w-full mx-auto mt-5">
+    <form [formGroup]="tournamentForm" (ngSubmit)="addTournament()" class="space-y-4 p-6">
+
+      <div class="text-2xl font-bold mb-5 text-center">Nouveau Tournoi</div>
+      <!-- Name -->
+      <div class="flex flex-col space-y-2">
+        <label for="name" class="text-sm font-semibold">Name:</label>
+        <input type="text" pInputText id="name" formControlName="name" class="w-full p-inputtext">
+      </div>
+
+      <!-- Location -->
+      <div class="flex flex-col space-y-2">
+        <label for="location" class="text-sm font-semibold">Location:</label>
+        <input type="text" pInputText id="location" formControlName="location" class="w-full p-inputtext">
+      </div>
+
+      <!-- Min Players -->
+      <div class="flex flex-col space-y-2">
+        <label class="text-sm font-semibold">Min Players:</label>
+        <p-inputNumber inputId="minPlayers" formControlName="minPlayers" styleClass="w-full"></p-inputNumber>
+      </div>
+
+      <!-- Max Players -->
+      <div class="flex flex-col space-y-2">
+        <label class="text-sm font-semibold">Max Players:</label>
+        <p-inputNumber inputId="maxPlayers" formControlName="maxPlayers" styleClass="w-full"></p-inputNumber>
+      </div>
+
+      <!-- Elo Min -->
+      <div class="flex flex-col space-y-2">
+        <label class="text-sm font-semibold">Elo Min:</label>
+        <p-inputNumber inputId="eloMin" formControlName="eloMin" styleClass="w-full"></p-inputNumber>
+      </div>
+
+      <!-- Elo Max -->
+      <div class="flex flex-col space-y-2">
+        <label class="text-sm font-semibold">Elo Max:</label>
+        <p-inputNumber inputId="eloMax" formControlName="eloMax" styleClass="w-full"></p-inputNumber>
+      </div>
+
+      <!-- Categories -->
+      <div class="flex flex-col space-y-2">
+        <label class="text-sm font-semibold">Categories</label>
+        <p-multiSelect [options]="categories" formControlName="categories" styleClass="w-full"></p-multiSelect>
+      </div>
+
+      <!-- Women Only -->
+      <div class="flex items-center justify-between space-x-4">
+        <label for="womenOnly" class="text-sm font-semibold">Women Only:</label>
+        <p-inputSwitch formControlName="womenOnly" id="womenOnly" styleClass="p-inputswitch"></p-inputSwitch>
+      </div>
+
+      <!-- End Of Registration Date -->
+      <div class="flex flex-col space-y-2">
+        <label for="endOfRegistrationDate" class="text-sm font-semibold">End Of Registration Date:</label>
+        <input type="date" id="endOfRegistrationDate" formControlName="endOfRegistrationDate" class="w-full p-inputtext">
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-center">
+        <p-button type="submit" label="Ajouter le tournoi" styleClass="p-button p-button-rounded p-button-info"></p-button>
+      </div>
+
+      <!-- Error Message -->
+      <div class="flex justify-center">
+        <p *ngIf="isError" class="text-red-600">An error occurred while adding the tournament.</p>
+      </div>
+
+    </form>
+  </p-card>
+</div>

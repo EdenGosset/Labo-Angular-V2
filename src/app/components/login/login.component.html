@@ -1,0 +1,21 @@
+<!-- Afficher le formulaire de connexion uniquement si l'utilisateur n'est pas connecté (!isLoggedIn) -->
+<div *ngIf="!token">
+  <h2>Login</h2>
+  <form (ngSubmit)="onLogin()">
+    <div>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" [(ngModel)]="loginData.username">
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="loginData.password">
+    </div>
+    <div>
+      <button type="submit">Login</button>
+    </div>
+  </form>
+</div>
+
+<!-- Afficher le message de bienvenue avec le nom d'utilisateur si l'utilisateur est connecté (isLoggedIn) -->
+<h2 *ngIf="token">Bienvenue, {{ token.user.username }}</h2>
+

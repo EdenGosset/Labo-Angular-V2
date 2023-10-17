@@ -1,0 +1,44 @@
+/* Ajoutez ces styles dans un fichier CSS personnalisé */
+
+/* Centrer la carte sur la page */
+.p-d-flex-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  min-width: 600px;
+  //align-items: center;
+  //height: 100vh;
+}
+
+/* Ajuster la largeur de la carte */
+.p-card-custom {
+  width: 25vw;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  min-width: 550px;
+}
+.elo .date{
+  width: 50%
+}
+
+.p-field{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+.row{
+  flex-direction: row;
+}
+
+/* Styles pour les messages d'erreur */
+.p-card-custom .error-message {
+  color: #ff0000;
+}
+
+/* Ajuster le bouton */
+.p-card-custom .p-button {
+  width: 25%;
+}

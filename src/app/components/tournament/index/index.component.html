@@ -1,0 +1,119 @@
+<div class="flex items-center justify-center mt-5">
+  <div class="w-full max-w-md bg-white shadow-lg rounded-lg px-6 py-6">
+    <form [formGroup]="searchForm" (ngSubmit)="getTournois()">
+
+      <!-- Titre du formulaire -->
+      <div class="text-2xl font-bold mb-5 text-center">Recherche de tournoi</div>
+
+      <!-- Nom du tournoi -->
+      <div class="mb-4 p-field">
+        <span class="p-float-label">
+          <input pInputText id="tournamentName" formControlName="name" class="w-full" pStyleClass="p-inputtext"/>
+          <label htmlFor="tournamentName">Nom du tournoi</label>
+        </span>
+      </div>
+
+      <!-- Tournament Categories -->
+      <div class="mb-4 p-field">
+        <p-multiSelect [options]="tournamentCategories" formControlName="category" defaultLabel="Select a Category"
+                       display="chip" class="w-full" styleClass="p-multiselect w-full"></p-multiSelect>
+      </div>
+
+      <!-- Tournament Status -->
+      <div class="mb-4 p-field">
+        <p-multiSelect [options]="tournamentStatus" formControlName="status" defaultLabel="Select a Status"
+                       display="chip" class="w-full" styleClass="p-multiselect w-full"></p-multiSelect>
+      </div>
+
+      <!-- Femmes uniquement -->
+      <div class="flex items-center mb-4">
+        <label for="womenOnly" class="text-sm font-medium text-gray-700 mr-4">Femmes uniquement :</label>
+        <p-checkbox id="womenOnly" formControlName="womenOnly" styleClass="p-checkbox"></p-checkbox>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+              class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
+        Rechercher
+      </button>
+
+    </form>
+  </div>
+</div>
+
+
+<div class="relative overflow-x-auto ml-10 mr-10 shadow-md sm:rounded-lg justify-center items-center mt-5 mb-5">
+  <!-- contenu du tableau -->
+  <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          Nom
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Location
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Catégories
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Elo
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Statut
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Fin des inscriptions
+        </th>
+        <th scope="col" class="px-6 py-3">
+          Joueurs
+        </th>
+        <th scope="col" class="px-6 py-3">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" *ngFor="let tournament of tournaments">
+        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          {{ tournament.name }}
+        </td>
+        <td class="px-6 py-4">{{ tournament.location }}</td>
+        <td class="px-6 py-4">{{ tournament.categories?.join(', ') }}</td>
+        <td class="px-6 py-4">{{ tournament.eloMin }} - {{tournament.eloMax}}</td>
+        <td class="px-6 py-4">{{ tournament.status }}</td>
+        <td class="px-6 py-4">{{ tournament.endOfRegistrationDate | date : "dd/MM/yyyy"}}</td>
+        <td class="px-6 py-4">{{ tournament.count }} / {{ tournament.maxPlayers }}</td>
+        <td class="px-6 py-4">
+
+          <button pButton
+                  class="mybutton "
+                  routerLink="/tournament/details/{{tournament.id}}">
+            <i class="pi pi-search cursor-pointer"></i>
+          </button>
+
+          <button *ngIf=" user.user?.role === 'Admin'" pButton
+                  class="mybutton bg-red-500 hover:bg-red-900 "
+                  (click)="deleteTournois(tournament.id)">
+            <i class="pi pi-trash"></i>
+          </button>
+
+          <button *ngIf="!tournament.isRegistered && tournament.canRegister" pButton
+                  class="mybutton bg-green-300 hover:bg-green-900"
+                  (click)="tournamentInscription(tournament.id)">
+            <i class="pi pi-arrow-right"></i>
+          </button>
+
+          <button *ngIf="tournament.isRegistered && tournament.status != 'Closed' && tournament.status != 'InProgress'"
+                  pButton
+                  class="mybutton bg-orange-300 hover:bg-orange-900"
+                  (click)="tournamentUnsub(tournament.id)">
+            <i class="pi pi-arrow-left"></i>
+
+          </button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

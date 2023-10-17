@@ -1,0 +1,51 @@
+<div class="p-d-flex-center">
+  <div class="p-card p-card-custom" style="width: 25vw;">
+
+
+    <div class="text-2xl font-bold mb-5 text-center">Nouveau membre</div>
+
+    <form [formGroup]="userForm" (ngSubmit)="addUser()" *ngIf="!isError">
+
+      <div class="p-field">
+        <label>Username</label>
+        <input type="text" pInputText class="p-inputtext" formControlName="username"
+               (blur)="checkUsernameAvailability()">
+        <div *ngIf="userForm.get('username')?.hasError('usernameExists')" class="error-message">
+          Username already exists.
+        </div>
+      </div>
+
+      <div class="p-field">
+        <label>Email</label>
+        <input type="text" pInputText class="p-inputtext" formControlName="email" (blur)="checkEmailAvailability()">
+        <div *ngIf="userForm.get('email')?.hasError('emailExists')" class="error-message">
+          Email already exists.
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+
+        <span class="p-float-label date">
+         <p-calendar id="birthdate" [showIcon]="true" formControlName="birthDate" styleClass=""></p-calendar>
+         <label for="birthdate">Date de naissance</label>
+        </span>
+        <span class="p-float-label elo">
+          <p-inputNumber id="elo" formControlName="elo" styleClass=""></p-inputNumber>
+          <label for="elo">Elo (0-3000)</label>
+        </span>
+
+      </div>
+
+      <div class="p-field flex justify-between">
+        <label>Gender</label>
+        <p-dropdown [options]="genderOptions" formControlName="gender"></p-dropdown>
+      </div>
+      <button type="submit" pButton class="btn btn-primary" [disabled]="!userForm.valid || userForm.pending">
+        Sauvegarder
+      </button>
+
+
+
+    </form>
+  </div>
+</div>
